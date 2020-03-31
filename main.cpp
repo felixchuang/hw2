@@ -19,21 +19,23 @@ int main()
     int i;
     float j;
     int hz = 0;
-    int sample = 1000;
-    int ADCdata[1000];
-    int p[110];
+    int sample = 400;
+    int ADCdata[400];
+    int p[110];     // peak
     
+    wait(5);
     //sampling
     for (i = 0; i < sample; i++){
         ADCdata[i] = Ain;
+        Aout = ADCdata[i];
         wait(1./sample);
     }
     for (i = 0; i < sample; i++){
         pc.printf("%1.3f\r\n", ADCdata[i]);
-        wait(0.1);
+    //    wait(0.1);
     }
     // find the peak
-    for (i = 0; i < sample; i++){
+    for (i = 0; i < sample - 1; i++){
         if(ADCdata[i]>ADCdata[i+1] && ADCdata[i]>ADCdata[i-1]){
             p[hz]=i;
             hz++;
@@ -44,7 +46,6 @@ int main()
             Aout = 0.5 + 0.5 * sin(j * 3.14159);
             wait(1./(40*hz));
         }
-        Display(hz);
         
         if(Switch == 1){
             greenLED = 0;
@@ -61,25 +62,20 @@ int main()
 
 void Display(int freq)
 {
-    int thou;
     int hund;
     int ten;
     int one;
-    char tablel;
 
-    thou = freq / 1000;
-    hund = (freq / 100) % 10;
+    hund = (freq / 100);
     ten = (freq / 10) % 10;
     one = freq % 10;
-    if(thou > 0)
-        display = table[thou];
     if(hund > 0)
         display = table[hund];
     wait(0.5);
     display = table[ten];
     wait(0.5);
-    tablel = table[one] | 0X80;
-    display = tablel;
+    display = table[one] | 0X80;
+
     wait(0.5);
 }
 
