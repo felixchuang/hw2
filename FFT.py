@@ -19,7 +19,7 @@ serdev = '/dev/ttyACM0'
 s = serial.Serial(serdev)
 for x in range(0, int(Fs)):
     line = s.readline()
-    print(line)
+    #print(line)
     y[x] = float(line)
 
 Y = np.fft.fft(y)/n*2
