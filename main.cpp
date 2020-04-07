@@ -20,7 +20,7 @@ int main()
     float j;
     int hz = 0;
     int sample = 400;
-    int ADCdata[400];
+    float ADCdata[400];
     int p[110];     // peak
     
     wait(5);
