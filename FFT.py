@@ -4,7 +4,7 @@ import numpy as np
 import serial
 import time
 
-Fs = 300.0;
+Fs = 380.0;
 Ts = 1.0/Fs;
 t = np.arange(0,1,Ts)
 y = np.arange(0,1,Ts)
